@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Zwelibanzi Mndawe — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<script src="imgs.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0a0a0f;--paper:#f4f2ee;--accent:#1a4fd6;--muted:#8a8680;--card:#ffffff;--border:#e0ddd8;--tag-bg:#eef2ff;--tag-text:#2d4fd4}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden}
+.hero{position:relative;min-height:100vh;display:grid;grid-template-rows:auto 1fr;background:var(--ink);overflow:hidden}
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:60px 60px}
+.blob{position:absolute;border-radius:50%;pointer-events:none}
+.blob1{width:600px;height:600px;background:radial-gradient(circle,rgba(26,79,214,.35) 0%,transparent 70%);top:-100px;right:-100px}
+.blob2{width:400px;height:400px;background:radial-gradient(circle,rgba(232,68,10,.2) 0%,transparent 70%);bottom:0;left:-80px}
+nav{position:relative;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:28px 60px;border-bottom:1px solid rgba(255,255,255,.08)}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:#fff;letter-spacing:.08em;text-transform:uppercase}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{color:rgba(255,255,255,.55);text-decoration:none;font-size:.85rem;letter-spacing:.04em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:#fff}
+.hero-body{position:relative;z-index:2;display:flex;padding:80px 60px 100px;gap:60px;align-items:center}
+.hero-text{flex:1}
+.hero-photo{flex-shrink:0;width:260px;height:340px;border-radius:16px;overflow:hidden;border:2px solid rgba(255,255,255,.1);box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:top center}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--accent);font-size:.8rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin-bottom:28px}
+.eyebrow::before{content:'';display:block;width:28px;height:1px;background:var(--accent)}
+h1{font-family:'Syne',sans-serif;font-size:clamp(3rem,6vw,5.5rem);font-weight:800;color:#fff;line-height:.95;letter-spacing:-.03em;margin-bottom:32px}
+h1 .outline{color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.35)}
+.hero-desc{color:rgba(255,255,255,.5);font-size:1rem;font-weight:300;line-height:1.7;max-width:480px;margin-bottom:40px}
+.hero-cta{display:flex;gap:16px;align-items:center}
+.btn-primary{display:inline-block;background:var(--accent);color:#fff;padding:14px 32px;border-radius:4px;font-size:.85rem;font-weight:500;letter-spacing:.04em;text-decoration:none;text-transform:uppercase;transition:transform .2s,box-shadow .2s}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,79,214,.4)}
+.btn-ghost{color:rgba(255,255,255,.5);font-size:.85rem;text-decoration:none;letter-spacing:.04em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:2px;transition:color .2s,border-color .2s}
+.btn-ghost:hover{color:#fff;border-color:#fff}
+.section-inner{max-width:1200px;margin:0 auto;padding:100px 60px}
+.sec-label{font-family:'Syne',sans-serif;font-size:.72rem;font-weight:600;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.sec-label::after{content:'';display:block;flex:1;max-width:48px;height:1px;background:var(--accent)}
+.sec-title{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:800;line-height:1.1;letter-spacing:-.02em;margin-bottom:16px}
+.sec-sub{color:var(--muted);font-size:1rem;font-weight:300;line-height:1.7;max-width:480px;margin-bottom:64px}
+.card{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--card);margin-bottom:80px;box-shadow:0 2px 16px rgba(0,0,0,.05);transition:box-shadow .3s,transform .3s}
+.card:hover{box-shadow:0 12px 48px rgba(0,0,0,.12);transform:translateY(-4px)}
+.card-header{padding:48px 52px 40px;display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid var(--border);gap:40px}
+.card-meta{flex:1}
+.proj-num{font-family:'Syne',sans-serif;font-size:.72rem;font-weight:600;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-bottom:12px}
+.proj-title{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;letter-spacing:-.02em;line-height:1.1;margin-bottom:16px}
+.proj-desc{color:var(--muted);font-size:.95rem;line-height:1.7;max-width:480px;margin-bottom:28px}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{background:var(--tag-bg);color:var(--tag-text);font-size:.75rem;font-weight:500;padding:5px 12px;border-radius:100px}
+.badge-wrap{flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:6px 14px;border-radius:100px}
+.badge-green{background:#ecfdf5;color:#059669}
+.badge-green::before{content:'';display:block;width:6px;height:6px;border-radius:50%;background:#10b981;animation:pulse 2s infinite}
+.badge-orange{background:#fff7ed;color:#c2410c}
+.badge-orange::before{content:'';display:block;width:6px;height:6px;border-radius:50%;background:#f97316;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+.live-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);font-size:.82rem;font-weight:500;text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s;margin-top:8px}
+.live-link:hover{border-color:var(--accent)}
+.live-link::before{content:'↗';font-size:.9rem}
+.card-static{padding:48px 52px;background:#f9f8f6;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:center}
+.card-static-inner{text-align:center}
+.card-static-icon{font-size:3rem;margin-bottom:12px}
+.card-static-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;margin-bottom:6px}
+.card-static-sub{color:var(--muted);font-size:.9rem;margin-bottom:20px}
+.ss{position:relative;background:#000;overflow:hidden;height:440px;border-top:1px solid var(--border)}
+.ss-track{display:flex;height:100%;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.slide{flex-shrink:0;width:100%;height:100%;cursor:zoom-in;position:relative}
+.slide img{width:100%;height:100%;object-fit:contain;object-position:center top;background:#111;display:block;transition:transform .4s ease}
+.slide:hover img{transform:scale(1.02)}
+.slide-cap{position:absolute;bottom:0;left:0;right:0;padding:14px 20px;background:linear-gradient(transparent,rgba(0,0,0,.75));color:rgba(255,255,255,.9);font-size:.8rem;opacity:0;transition:opacity .3s}
+.slide:hover .slide-cap{opacity:1}
+.ss-btn{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.12);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:1.4rem;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;transition:background .2s;line-height:1}
+.ss-btn:hover{background:rgba(255,255,255,.25)}
+.ss-prev{left:16px}.ss-next{right:16px}
+.ss-dots{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:10}
+.ss-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.35);cursor:pointer;transition:background .2s,transform .2s}
+.ss-dot.active{background:#fff;transform:scale(1.3)}
+.ss-counter{position:absolute;top:14px;right:16px;background:rgba(0,0,0,.5);color:rgba(255,255,255,.8);font-size:.72rem;padding:4px 10px;border-radius:100px;z-index:10}
+.vp-section{border-top:1px solid var(--border);background:#000}
+.vp-dropzone{position:relative;overflow:hidden;padding:80px 60px;cursor:pointer;min-height:320px;display:flex;align-items:center;justify-content:center;transition:background .3s}
+.vp-dropzone.drag-over{background:rgba(26,79,214,.08)}
+.vp-dz-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(26,79,214,.18) 0%,transparent 70%),repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(255,255,255,.03) 60px),repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(255,255,255,.03) 60px);pointer-events:none}
+.vp-dz-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center}
+.vp-rings{position:relative;width:100px;height:100px;display:flex;align-items:center;justify-content:center;margin-bottom:8px;transition:transform .4s cubic-bezier(.34,1.56,.64,1)}
+.vp-dropzone:hover .vp-rings,.vp-dropzone.drag-over .vp-rings{transform:scale(1.1)}
+.vp-ring{position:absolute;border-radius:50%;border:1.5px solid}
+.vp-r1{width:100px;height:100px;border-color:rgba(26,79,214,.6);animation:vpSpin 3s linear infinite}
+.vp-r2{width:78px;height:78px;border-color:rgba(26,79,214,.35);animation:vpSpin 3s linear infinite reverse;animation-delay:-.5s}
+.vp-r3{width:56px;height:56px;border-color:rgba(26,79,214,.2);animation:vpSpin 4s linear infinite;animation-delay:-1s}
+@keyframes vpSpin{to{transform:rotate(360deg)}}
+.vp-play-center{position:relative;z-index:2;width:44px;height:44px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1rem;color:#fff;box-shadow:0 0 24px rgba(26,79,214,.6);transition:box-shadow .3s}
+.vp-dropzone:hover .vp-play-center{box-shadow:0 0 40px rgba(26,79,214,.9),0 0 80px rgba(26,79,214,.3)}
+.vp-dz-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1.3rem;color:#fff}
+.vp-dz-sub{color:rgba(255,255,255,.4);font-size:.9rem}
+.vp-dz-sub span{color:var(--accent);border-bottom:1px solid rgba(26,79,214,.4)}
+.vp-dz-pill{background:rgba(26,79,214,.15);border:1px solid rgba(26,79,214,.3);color:rgba(99,140,255,.9);font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:5px 14px;border-radius:100px}
+.vp-cinema{display:none;position:relative;background:#000}
+.vp-cinema.active{display:block}
+.vp-glow{position:absolute;bottom:70px;left:50%;transform:translateX(-50%);width:80%;height:60px;background:radial-gradient(ellipse,rgba(26,79,214,.5) 0%,transparent 70%);filter:blur(24px);pointer-events:none;z-index:0}
+.vp-screen{position:relative;background:#000;cursor:pointer}
+#vp-vid{width:100%;display:block;max-height:68vh;object-fit:contain;background:#000}
+.vp-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.35);transition:opacity .3s;z-index:5}
+.vp-overlay.hidden{opacity:0;pointer-events:none}
+.vp-bigplay{width:80px;height:80px;border-radius:50%;background:rgba(26,79,214,.9);display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:#fff;animation:vpPulse 2.5s infinite;transition:transform .2s}
+.vp-overlay:hover .vp-bigplay{transform:scale(1.1)}
+@keyframes vpPulse{0%{box-shadow:0 0 0 0 rgba(26,79,214,.5)}70%{box-shadow:0 0 0 24px rgba(26,79,214,0)}100%{box-shadow:0 0 0 0 rgba(26,79,214,0)}}
+.vp-controls{position:relative;z-index:10;background:linear-gradient(to bottom,rgba(0,0,0,.7),rgba(0,0,0,.95));padding:0 0 4px}
+.vp-progress{padding:14px 20px 6px;cursor:pointer;position:relative}
+.vp-prog-bg{position:relative;height:4px;border-radius:2px;background:rgba(255,255,255,.12);transition:height .2s}
+.vp-progress:hover .vp-prog-bg{height:6px}
+.vp-buf{position:absolute;top:0;left:0;height:100%;background:rgba(255,255,255,.2);border-radius:2px}
+.vp-fill{position:absolute;top:0;left:0;height:100%;background:linear-gradient(90deg,var(--accent),#60a5fa);border-radius:2px;transition:width .1s linear}
+.vp-thumb{position:absolute;top:50%;transform:translate(-50%,-50%);width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 0 8px rgba(26,79,214,.8);opacity:0;transition:opacity .2s,left .1s linear;pointer-events:none}
+.vp-progress:hover .vp-thumb{opacity:1}
+.vp-tooltip{position:absolute;bottom:28px;background:rgba(0,0,0,.85);color:#fff;font-size:.7rem;padding:3px 8px;border-radius:4px;pointer-events:none;opacity:0;transform:translateX(-50%);white-space:nowrap}
+.vp-progress:hover .vp-tooltip{opacity:1}
+.vp-ctrl-row{display:flex;justify-content:space-between;align-items:center;padding:6px 16px 10px;gap:8px}
+.vp-cl,.vp-cr{display:flex;align-items:center;gap:4px}
+.vp-btn{background:none;border:none;color:rgba(255,255,255,.7);font-size:.9rem;cursor:pointer;padding:6px 8px;border-radius:6px;transition:color .15s,background .15s;line-height:1;white-space:nowrap}
+.vp-btn:hover{color:#fff;background:rgba(255,255,255,.1)}
+.vp-playbtn{width:36px;height:36px;border-radius:50%;background:var(--accent)!important;color:#fff!important;font-size:.8rem;display:flex;align-items:center;justify-content:center;box-shadow:0 0 16px rgba(26,79,214,.5)}
+.vp-playbtn:hover{transform:scale(1.1)}
+.vp-vol{display:flex;align-items:center;gap:2px}
+.vp-vol-sl{-webkit-appearance:none;width:0;height:3px;background:rgba(255,255,255,.3);border-radius:2px;cursor:pointer;transition:width .25s}
+.vp-vol:hover .vp-vol-sl{width:64px}
+.vp-vol-sl::-webkit-slider-thumb{-webkit-appearance:none;width:10px;height:10px;border-radius:50%;background:#fff;cursor:pointer}
+.vp-time{color:rgba(255,255,255,.55);font-size:.78rem;padding:0 6px;white-space:nowrap}
+.vp-speed{font-size:.72rem!important;font-weight:700;border:1px solid rgba(255,255,255,.2)!important;padding:3px 8px!important;border-radius:4px!important}
+.vp-fname{color:rgba(255,255,255,.3);font-size:.72rem;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vp-closebtn{color:rgba(255,100,100,.7)!important}
+.vp-closebtn:hover{color:#ff6464!important;background:rgba(255,100,100,.1)!important}
+.certs-section{background:var(--ink);border-top:1px solid rgba(255,255,255,.06)}
+.certs-inner{max-width:1200px;margin:0 auto;padding:100px 60px}
+.certs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:48px}
+.cert-card{position:relative;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:24px 20px 20px;text-decoration:none;display:flex;flex-direction:column;gap:10px;transition:transform .3s,border-color .3s,box-shadow .3s;overflow:hidden}
+.cert-card::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 100% 80% at 50% -10%,rgba(26,79,214,.2) 0%,transparent 70%);opacity:0;transition:opacity .3s;pointer-events:none}
+.cert-card:hover{transform:translateY(-5px);border-color:rgba(26,79,214,.45);box-shadow:0 20px 40px rgba(0,0,0,.4),0 0 0 1px rgba(26,79,214,.15)}
+.cert-card:hover::after{opacity:1}
+.cert-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.cert-icon{width:40px;height:40px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.75rem;color:#fff}
+.ci-google{background:linear-gradient(135deg,#4285F4,#34A853)}
+.ci-opswat{background:linear-gradient(135deg,#1e3a5f,#2d6a9f)}
+.ci-isc2{background:linear-gradient(135deg,#00838f,#00bcd4)}
+.ci-cisco{background:linear-gradient(135deg,#049fd9,#0076a8)}
+.cert-status{font-size:.62rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:100px;white-space:nowrap}
+.cs-green{background:rgba(16,185,129,.15);color:#34d399}
+.cs-blue{background:rgba(26,79,214,.2);color:#93c5fd}
+.cs-amber{background:rgba(245,158,11,.15);color:#fbbf24}
+.cert-name{font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem;color:#fff;line-height:1.3;flex:1}
+.cert-issuer{font-size:.72rem;color:rgba(255,255,255,.35)}
+.cert-date{font-size:.7rem;color:rgba(255,255,255,.25);margin-top:auto;padding-top:10px;border-top:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;align-items:center}
+.cert-arrow{color:rgba(26,79,214,.6);font-size:.8rem;transition:color .2s,transform .2s}
+.cert-card:hover .cert-arrow{color:#60a5fa;transform:translate(2px,-2px)}
+.mict-block{border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden;margin-bottom:40px}
+.mict-head{background:rgba(124,58,237,.12);border-bottom:1px solid rgba(255,255,255,.06);padding:20px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.mict-head-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;color:#fff;margin-bottom:3px}
+.mict-head-sub{font-size:.75rem;color:rgba(255,255,255,.3)}
+.mict-head-pills{display:flex;gap:8px;flex-wrap:wrap}
+.mict-pill{font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:100px}
+.mp-nqf{background:rgba(124,58,237,.2);color:rgba(167,139,250,.9)}
+.mp-credits{background:rgba(16,185,129,.15);color:#34d399}
+.mict-row{display:grid;grid-template-columns:110px 1fr 56px;gap:16px;padding:14px 28px;align-items:center;border-top:1px solid rgba(255,255,255,.04);transition:background .2s}
+.mict-row:hover{background:rgba(255,255,255,.03)}
+.mict-saqa{font-size:.72rem;font-weight:600;color:rgba(99,140,255,.7);font-family:monospace}
+.mict-txt{font-size:.83rem;color:rgba(255,255,255,.6);line-height:1.4}
+.mict-cr{font-size:.83rem;font-weight:700;color:#fff;text-align:center}
+.credly-cta{display:flex;align-items:center;justify-content:center;gap:16px;padding:32px 0 0}
+.credly-btn{display:inline-flex;align-items:center;gap:10px;background:rgba(255,136,0,.08);border:1px solid rgba(255,136,0,.2);color:rgba(255,180,60,.9);font-size:.85rem;font-weight:600;padding:14px 28px;border-radius:10px;text-decoration:none;transition:background .2s,border-color .2s,transform .2s}
+.credly-btn:hover{background:rgba(255,136,0,.16);border-color:rgba(255,136,0,.45);transform:translateY(-2px)}
+.credly-dot{width:8px;height:8px;border-radius:50%;background:#f97316;animation:pulse 2s infinite;flex-shrink:0}
+.cert-count-badge{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);font-size:.75rem;padding:6px 14px;border-radius:100px}
+.about{background:var(--ink);padding:80px 60px}
+.about-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.about h2{font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1.15;margin-bottom:20px}
+.about p{color:rgba(255,255,255,.45);font-size:.95rem;line-height:1.8;margin-bottom:12px}
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.skill-item{border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:18px 20px}
+.sk-label{font-size:.7rem;font-weight:600;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.sk-val{font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.5}
+.lb{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.96);align-items:center;justify-content:center}
+.lb.open{display:flex}
+.lb img{max-width:92vw;max-height:90vh;border-radius:8px;object-fit:contain}
+.lb-close{position:absolute;top:24px;right:32px;color:rgba(255,255,255,.5);font-size:2rem;cursor:pointer;background:none;border:none;line-height:1}
+.lb-close:hover{color:#fff}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.1);border:none;color:#fff;font-size:1.8rem;width:52px;height:52px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.lb-nav:hover{background:rgba(255,255,255,.2)}
+.lb-prev{left:24px}.lb-next{right:24px}
+footer{background:var(--ink);border-top:1px solid rgba(255,255,255,.06);padding:60px}
+.foot-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.foot-name{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:#fff}
+.foot-email{color:var(--accent);font-size:.9rem;margin-top:4px}
+.foot-copy{color:rgba(255,255,255,.2);font-size:.75rem;text-align:right}
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+@media(max-width:900px){.certs-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){
+  nav{padding:20px 24px}.nav-links{display:none}
+  .hero-body{flex-direction:column-reverse;padding:40px 24px 60px;gap:32px}
+  .hero-photo{width:180px;height:220px}
+  .section-inner{padding:60px 24px}
+  .about{padding:60px 24px}.about-inner{grid-template-columns:1fr;gap:40px}
+  .card-header{flex-direction:column;padding:28px}
+  .ss{height:260px}
+  .certs-inner{padding:60px 24px}
+  .certs-grid{grid-template-columns:1fr}
+  .mict-row{grid-template-columns:80px 1fr 44px;gap:10px;padding:12px 16px}
+  .mict-head{padding:16px}
+  .foot-inner{flex-direction:column;gap:20px;text-align:center}
+  .foot-copy{text-align:center}
+}
+</style>
+</head>
+<body>
+
+<div class="lb" id="lb">
+  <button class="lb-close" onclick="closeLb()">&#215;</button>
+  <button class="lb-nav lb-prev" onclick="lbNav(-1)">&#8249;</button>
+  <img id="lb-img" src="" alt="">
+  <button class="lb-nav lb-next" onclick="lbNav(1)">&#8250;</button>
+</div>
+
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <nav>
+    <div class="nav-logo">ZB Mndawe</div>
+    <ul class="nav-links">
+      <li><a href="#projects">Work</a></li>
+      <li><a href="#certifications">Certs</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  <div class="hero-body">
+    <div class="hero-text">
+      <div class="eyebrow">Portfolio &middot; 2024&ndash;2026</div>
+      <h1>Full-Stack<br><span class="outline">Developer</span><br>&amp; Designer</h1>
+      <p class="hero-desc">Building production-grade web apps, mobile applications, client portals, and automation systems. Based in Johannesburg.</p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn-primary">View Work</a>
+        <a href="mailto:zwelibranden@gmail.com" class="btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-photo"><img id="hero-img" src="" alt="Zwelibanzi Mndawe"></div>
+  </div>
+</section>
+
+<section id="projects">
+<div class="section-inner">
+  <div class="sec-label">Selected Work</div>
+  <h2 class="sec-title">Projects</h2>
+  <p class="sec-sub">Real-world systems built and deployed for clients &mdash; web, mobile, and automation.</p>
+
+  <div class="card fade-up">
+    <div class="card-header">
+      <div class="card-meta">
+        <div class="proj-num">Project 01</div>
+        <h3 class="proj-title">MTG Rams Client Portal</h3>
+        <p class="proj-desc">Full-featured business management portal for an accounting firm. Client management, document requests, Zoom meeting scheduling, email campaigns, and role-based admin access.</p>
+        <div class="tags"><span class="tag">React</span><span class="tag">PHP</span><span class="tag">PostgreSQL</span><span class="tag">Node.js</span><span class="tag">Zoom API</span><span class="tag">JWT Auth</span><span class="tag">SMTP</span></div>
+        <a href="https://mtgramsbs.co.za/portal/" target="_blank" class="live-link">mtgramsbs.co.za/portal</a>
+      </div>
+      <div class="badge-wrap"><span class="badge badge-green">Live</span></div>
+    </div>
+    <div class="ss" id="ss0">
+      <div class="ss-track" id="ss0-t">
+        <div class="slide" onclick="openLb('ss0',0)"><img id="s0i0" src="" alt="Clients"><div class="slide-cap">Client Management Dashboard</div></div>
+        <div class="slide" onclick="openLb('ss0',1)"><img id="s0i1" src="" alt="Requests"><div class="slide-cap">Requests &amp; Documents</div></div>
+        <div class="slide" onclick="openLb('ss0',2)"><img id="s0i2" src="" alt="Email"><div class="slide-cap">Email Campaign Management</div></div>
+        <div class="slide" onclick="openLb('ss0',3)"><img id="s0i3" src="" alt="Zoom"><div class="slide-cap">Zoom Meeting Integration</div></div>
+        <div class="slide" onclick="openLb('ss0',4)"><img id="s0i4" src="" alt="Settings"><div class="slide-cap">Settings &amp; Theme Switcher</div></div>
+      </div>
+      <button class="ss-btn ss-prev" onclick="ssNav('ss0',-1)">&#8249;</button>
+      <button class="ss-btn ss-next" onclick="ssNav('ss0',1)">&#8250;</button>
+      <div class="ss-dots" id="ss0-dots"></div>
+      <div class="ss-counter" id="ss0-c">1 / 5</div>
+    </div>
+  </div>
+
+  <div class="card fade-up">
+    <div class="card-header">
+      <div class="card-meta">
+        <div class="proj-num">Project 02</div>
+        <h3 class="proj-title">MTG Rams Student Portal</h3>
+        <p class="proj-desc">Student-facing portal providing learning resources, course management, and progress tracking for enrolled students.</p>
+        <div class="tags"><span class="tag">React</span><span class="tag">PHP</span><span class="tag">MySQL</span><span class="tag">WordPress</span><span class="tag">REST API</span></div>
+        <a href="https://mtgramsbs.co.za/student/" target="_blank" class="live-link">mtgramsbs.co.za/student</a>
+      </div>
+      <div class="badge-wrap"><span class="badge badge-green">Live</span></div>
+    </div>
+    <div class="card-static"><div class="card-static-inner">
+      <div class="card-static-icon">&#127891;</div>
+      <div class="card-static-title">Student Learning Portal</div>
+      <div class="card-static-sub">Live at mtgramsbs.co.za/student</div>
+      <a href="https://mtgramsbs.co.za/student/" target="_blank" class="btn-primary" style="font-size:.8rem;padding:12px 24px">Visit Live Site &#8599;</a>
+    </div></div>
+  </div>
+
+  <div class="card fade-up">
+    <div class="card-header">
+      <div class="card-meta">
+        <div class="proj-num">Project 03</div>
+        <h3 class="proj-title">Redemption City Church Website</h3>
+        <p class="proj-desc">Responsive, mobile-first church website with event listings, sermon content, and clean brand identity built for the Johannesburg community.</p>
+        <div class="tags"><span class="tag">WordPress</span><span class="tag">PHP</span><span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span><span class="tag">Figma</span></div>
+        <a href="https://redemptioncitychurch.co.za/" target="_blank" class="live-link">redemptioncitychurch.co.za</a>
+      </div>
+      <div class="badge-wrap"><span class="badge badge-green">Live</span></div>
+    </div>
+    <div class="card-static"><div class="card-static-inner">
+      <div class="card-static-icon">&#9962;</div>
+      <div class="card-static-title">Redemption City Church</div>
+      <div class="card-static-sub">Full website design &amp; development</div>
+      <a href="https://redemptioncitychurch.co.za/" target="_blank" class="btn-primary" style="font-size:.8rem;padding:12px 24px">Visit Live Site &#8599;</a>
+    </div></div>
+  </div>
+
+  <div class="card fade-up">
+    <div class="card-header">
+      <div class="card-meta">
+        <div class="proj-num">Project 04</div>
+        <h3 class="proj-title">Bulk Email Marketing System</h3>
+        <p class="proj-desc">Custom bulk email platform with contact management, CSV imports, group segmentation, reusable HTML templates, and real-time delivery tracking. 108 emails at 100% delivery rate.</p>
+        <div class="tags"><span class="tag">React</span><span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">MySQL</span><span class="tag">SMTP2GO</span><span class="tag">CSV Parser</span></div>
+      </div>
+      <div class="badge-wrap"><span class="badge badge-orange">Deployed</span><span style="color:var(--muted);font-size:.78rem;">108 emails &middot; 100%</span></div>
+    </div>
+    <div class="ss" id="ss1">
+      <div class="ss-track" id="ss1-t">
+        <div class="slide" onclick="openLb('ss1',0)"><img id="s1i0" src="" alt="Dashboard"><div class="slide-cap">System Dashboard</div></div>
+        <div class="slide" onclick="openLb('ss1',1)"><img id="s1i1" src="" alt="Templates"><div class="slide-cap">Email Templates</div></div>
+        <div class="slide" onclick="openLb('ss1',2)"><img id="s1i2" src="" alt="History"><div class="slide-cap">Campaign History</div></div>
+        <div class="slide" onclick="openLb('ss1',3)"><img id="s1i3" src="" alt="Contacts"><div class="slide-cap">Contact Management</div></div>
+        <div class="slide" onclick="openLb('ss1',4)"><img id="s1i4" src="" alt="Groups"><div class="slide-cap">Contact Groups</div></div>
+        <div class="slide" onclick="openLb('ss1',5)"><img id="s1i5" src="" alt="Builder"><div class="slide-cap">Campaign Builder</div></div>
+        <div class="slide" onclick="openLb('ss1',6)"><img id="s1i6" src="" alt="Code"><div class="slide-cap">Architecture</div></div>
+        <div class="slide" onclick="openLb('ss1',7)"><img id="s1i7" src="" alt="Delivered"><div class="slide-cap">Live Email Delivered</div></div>
+      </div>
+      <button class="ss-btn ss-prev" onclick="ssNav('ss1',-1)">&#8249;</button>
+      <button class="ss-btn ss-next" onclick="ssNav('ss1',1)">&#8250;</button>
+      <div class="ss-dots" id="ss1-dots"></div>
+      <div class="ss-counter" id="ss1-c">1 / 8</div>
+    </div>
+  </div>
+
+  <div class="card fade-up">
+    <div class="card-header">
+      <div class="card-meta">
+        <div class="proj-num">Project 05</div>
+        <h3 class="proj-title">QuikFill &mdash; Mobile Service Marketplace</h3>
+        <p class="proj-desc">Cross-platform mobile ecosystem with three apps &mdash; User, Driver, and Provider &mdash; in React Native (Expo). Real-time job matching, vehicle code onboarding, driver approval workflows, Google auth, and push notifications.</p>
+        <div class="tags"><span class="tag">React Native</span><span class="tag">Expo</span><span class="tag">Node.js</span><span class="tag">PostgreSQL</span><span class="tag">Socket.io</span><span class="tag">JWT</span><span class="tag">Push Notifications</span></div>
+      </div>
+      <div class="badge-wrap"><span class="badge badge-orange">In Development</span></div>
+    </div>
+    <div class="ss" id="ss2">
+      <div class="ss-track" id="ss2-t">
+        <div class="slide" onclick="openLb('ss2',0)"><img id="s2i0" src="" alt="Logins"><div class="slide-cap">Three-App Login Screens</div></div>
+        <div class="slide" onclick="openLb('ss2',1)"><img id="s2i1" src="" alt="Driver Code"><div class="slide-cap">Vehicle Code &amp; Driver Approval</div></div>
+        <div class="slide" onclick="openLb('ss2',2)"><img id="s2i2" src="" alt="Register"><div class="slide-cap">Driver Registration</div></div>
+        <div class="slide" onclick="openLb('ss2',3)"><img id="s2i3" src="" alt="Provider"><div class="slide-cap">Provider Registration</div></div>
+        <div class="slide" onclick="openLb('ss2',4)"><img id="s2i4" src="" alt="Code"><div class="slide-cap">Navigation Architecture</div></div>
+        <div class="slide" onclick="openLb('ss2',5)"><img id="s2i5" src="" alt="Provider App"><div class="slide-cap">Provider App &amp; Logo</div></div>
+      </div>
+      <button class="ss-btn ss-prev" onclick="ssNav('ss2',-1)">&#8249;</button>
+      <button class="ss-btn ss-next" onclick="ssNav('ss2',1)">&#8250;</button>
+      <div class="ss-dots" id="ss2-dots"></div>
+      <div class="ss-counter" id="ss2-c">1 / 6</div>
+    </div>
+  </div>
+
+  <div class="card fade-up">
+    <div class="card-header">
+      <div class="card-meta">
+        <div class="proj-num">Project 06</div>
+        <h3 class="proj-title">CIPC Annual Returns Robot</h3>
+        <p class="proj-desc">Python desktop automation that logs into the CIPC government portal, bulk-processes company registration numbers, fetches compliance status and outstanding amounts, and exports a CSV report &mdash; saving hours of manual work.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Selenium</span><span class="tag">Tkinter</span><span class="tag">WebDriver</span><span class="tag">CSV Export</span><span class="tag">Desktop Automation</span></div>
+      </div>
+      <div class="badge-wrap"><span class="badge badge-orange">Deployed</span></div>
+    </div>
+    <div class="ss" id="ss3">
+      <div class="ss-track" id="ss3-t">
+        <div class="slide" onclick="openLb('ss3',0)"><img id="s3i0" src="" alt="Robot GUI"><div class="slide-cap">CIPC Robot V17 &mdash; GUI with Live Console</div></div>
+        <div class="slide" onclick="openLb('ss3',1)"><img id="s3i1" src="" alt="Results"><div class="slide-cap">Debug Mode &mdash; CSV Report Output</div></div>
+        <div class="slide" onclick="openLb('ss3',2)"><img id="s3i2" src="" alt="Code"><div class="slide-cap">Python Source &mdash; Selenium + Tkinter</div></div>
+      </div>
+      <button class="ss-btn ss-prev" onclick="ssNav('ss3',-1)">&#8249;</button>
+      <button class="ss-btn ss-next" onclick="ssNav('ss3',1)">&#8250;</button>
+      <div class="ss-dots" id="ss3-dots"></div>
+      <div class="ss-counter" id="ss3-c">1 / 3</div>
+    </div>
+    <div class="vp-dropzone" id="vp-dz" onclick="loadServerVideo()">
+    
+    <div class="vp-dz-bg"></div>
+
+    <div class="vp-dz-content">
+      <div class="vp-rings">
+        <div class="vp-ring vp-r1"></div>
+        <div class="vp-ring vp-r2"></div>
+        <div class="vp-ring vp-r3"></div>
+        <div class="vp-play-center">&#9654;</div>
+      </div>
+
+      <div class="vp-dz-title">Play Demo Video</div>
+      <div class="vp-dz-sub">Click to watch the CIPC Robot demo</div>
+      <div class="vp-dz-pill">CIPC Robot Demo</div>
+    </div>
+
+  </div>
+
+
+  <div class="vp-cinema" id="vp-cinema">
+    <div class="vp-screen">
+      <video id="vp-vid" preload="metadata">
+        <source src="/videos/cipc-demo.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+      <div class="vp-cinema" id="vp-cinema">
+        <div class="vp-glow" id="vp-glow"></div>
+        <div class="vp-screen">
+          <video id="vp-vid" preload="metadata"></video>
+          <div class="vp-overlay" id="vp-overlay" onclick="vpTogglePlay()">
+            <div class="vp-bigplay" id="vp-bigplay">&#9654;</div>
+          </div>
+        </div>
+        <div class="vp-controls">
+          <div class="vp-progress" id="vp-prog">
+            <div class="vp-prog-bg">
+              <div class="vp-buf" id="vp-buf"></div>
+              <div class="vp-fill" id="vp-fill"></div>
+              <div class="vp-thumb" id="vp-thumb"></div>
+            </div>
+            <div class="vp-tooltip" id="vp-tip">0:00</div>
+          </div>
+          <div class="vp-ctrl-row">
+            <div class="vp-cl">
+              <button class="vp-btn vp-playbtn" onclick="vpTogglePlay()"><span id="vp-pi">&#9654;</span></button>
+              <button class="vp-btn" onclick="vpSkip(-10)">&#8810;</button>
+              <button class="vp-btn" onclick="vpSkip(10)">&#8811;</button>
+              <div class="vp-vol">
+                <button class="vp-btn" id="vp-volbtn" onclick="vpToggleMute()">&#128266;</button>
+                <input type="range" class="vp-vol-sl" id="vp-vol" min="0" max="1" step="0.05" value="1" oninput="vpSetVol(this.value)">
+              </div>
+              <span class="vp-time"><span id="vp-cur">0:00</span> / <span id="vp-dur">0:00</span></span>
+            </div>
+            <div class="vp-cr">
+              <span class="vp-fname" id="vp-fname">Demo</span>
+              <button class="vp-btn vp-speed" onclick="vpCycleSpeed()" id="vp-speed">1&times;</button>
+              <button class="vp-btn" onclick="vpFullscreen()">&#11036;</button>
+              <button class="vp-btn vp-closebtn" onclick="removeVideo()">&#10005;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<section id="certifications">
+<div class="certs-section">
+<div class="certs-inner fade-up">
+  <div class="sec-label" style="color:rgba(255,255,255,.4)">Verified Credentials</div>
+  <h2 class="sec-title" style="color:#fff;margin-bottom:12px">Certifications</h2>
+  <p class="sec-sub" style="color:rgba(255,255,255,.35);margin-bottom:40px">12 industry-recognised badges verified on Credly &mdash; cybersecurity, cloud, networking &amp; IT.</p>
+  <div class="certs-grid">
+    <a href="https://www.credly.com/users/zwelibanzi-branden-mndawe" target="_blank" class="cert-card"><div class="cert-top"><div class="cert-icon ci-google">G</div><span class="cert-status cs-green">Issued</span></div><div class="cert-name">Google IT Support Professional Certificate (v2)</div><div class="cert-issuer">Coursera</div><div class="cert-date"><span>May 14, 2025</span><span class="cert-arrow">&#8599;</span></div></a>
+    <a href="https://www.credly.com/users/zwelibanzi-branden-mndawe" target="_blank" class="cert-card"><div class="cert-top"><div class="cert-icon ci-opswat" style="font-size:.6rem">OPS</div><span class="cert-status cs-blue">Active</span></div><div class="cert-name">OPSWAT Critical Infrastructure Protection (ICIP)</div><div class="cert-issuer">OPSWAT</div><div class="cert-date"><span>Exp. May 14, 2026</span><span class="cert-arrow">&#8599;</span></div></a>
+    <a href="https://www.credly.com/users/zwelibanzi-branden-mndawe" target="_blank" class="cert-card"><div class="cert-top"><div class="cert-icon ci-google">G</div><span class="cert-status cs-green">Issued</span></div><div class="cert-name">Google Cybersecurity Professional Certificate V2</div><div class="cert-issuer">Coursera</div><div class="cert-date"><span>Apr 22, 2025</span><span class="cert-arrow">&#8599;</span></div></a>
+    <a href="https://www.credly.com/users/zwelibanzi-branden-mndawe" target="_blank" class="cert-card"><div class="cert-top"><div class="cert-icon ci-isc2" style="font-size:.65rem">ISC2</div><span class="cert-status cs-blue">Active</span></div><div class="cert-name">ISC2 Candidate</div><div class="cert-issuer">ISC2</div><div class="cert-date"><span>Exp. Apr 30, 2026</span><span class="cert-arrow">&#8599;</span></div></a>
+    <a href="https://www.credly.com/users/zwelibanzi-branden-mndawe" target="_blank" class="cert-card"><div class="cert-top"><div class="cert-icon ci-cisco" style="font-size:.6rem">CISCO</div><span class="cert-status cs-amber">Cisco</span></div><div class="cert-name">Ethical Hacker</div><div class="cert-issuer">Cisco Networking Academy</div><div class="cert-date"><span>Apr 1, 2025</span><span class="cert-arrow">&#8599;</span></div></a>
+    <a href="https://www.credly.com/users/zwelibanzi-branden-mndawe" target="_blank" class="cert-card"><div class="cert-top"><div class="cert-icon ci-cisco" style="font-size:.6rem">CISCO</div><span class="cert-status cs-amber">Cisco</span></div><div class="cert-name">Cyber Threat Management</div><div class="cert-issuer">Cisco Networking Academy</div><div class="cert-date"><span>Mar 13, 2025</span><span class="cert-arrow">&#8599;</span></div></a>
+    <a href="https://www.credly.com/users/zwelibanzi-branden-mndawe" target="_blank" class="cert-card"><div class="cert-top"><div class="cert-icon ci-cisco" style="font-size:.6rem">CISCO</div><span class="cert-status cs-amber">Cisco</span></div><div class="cert-name">Junior Cybersecurity Analyst Career Path</div><div class="cert-issuer">Cisco Networking Academy</div><div class="cert-date"><span>Mar 13, 2025</span><span class="cert-arrow">&#8599;</span></div></a>
+    <a href="https://www.credly.com/users/zwelibanzi-branden-mndawe" target="_blank" class="cert-card"><div class="cert-top"><div class="cert-icon ci-cisco" style="font-size:.6rem">CISCO</div><span class="cert-status cs-amber">Cisco</span></div><div class="cert-name">Network Defense</div><div class="cert-issuer">Cisco Networking Academy</div><div class="cert-date"><span>Mar 13, 2025</span><span class="cert-arrow">&#8599;</span></div></a>
+    <a href="https://www.credly.com/users/zwelibanzi-branden-mndawe" target="_blank" class="cert-card"><div class="cert-top"><div class="cert-icon ci-cisco" style="font-size:.6rem">CISCO</div><span class="cert-status cs-amber">Cisco</span></div><div class="cert-name">Endpoint Security</div><div class="cert-issuer">Cisco Networking Academy</div><div class="cert-date"><span>Mar 11, 2025</span><span class="cert-arrow">&#8599;</span></div></a>
+    <a href="https://www.credly.com/users/zwelibanzi-branden-mndawe" target="_blank" class="cert-card"><div class="cert-top"><div class="cert-icon ci-cisco" style="font-size:.6rem">CISCO</div><span class="cert-status cs-amber">Cisco</span></div><div class="cert-name">Introduction to Cybersecurity</div><div class="cert-issuer">Cisco Networking Academy</div><div class="cert-date"><span>Mar 11, 2025</span><span class="cert-arrow">&#8599;</span></div></a>
+    <a href="https://www.credly.com/users/zwelibanzi-branden-mndawe" target="_blank" class="cert-card"><div class="cert-top"><div class="cert-icon ci-cisco" style="font-size:.6rem">CISCO</div><span class="cert-status cs-amber">Cisco</span></div><div class="cert-name">Networking Basics</div><div class="cert-issuer">Cisco Networking Academy</div><div class="cert-date"><span>Mar 11, 2025</span><span class="cert-arrow">&#8599;</span></div></a>
+    <a href="https://www.credly.com/users/zwelibanzi-branden-mndawe" target="_blank" class="cert-card"><div class="cert-top"><div class="cert-icon ci-cisco" style="font-size:.6rem">CISCO</div><span class="cert-status cs-amber">Cisco</span></div><div class="cert-name">Networking Devices and Initial Configuration</div><div class="cert-issuer">Cisco Networking Academy</div><div class="cert-date"><span>Mar 11, 2025</span><span class="cert-arrow">&#8599;</span></div></a>
+  </div>
+  <div class="mict-block">
+    <div class="mict-head">
+      <div><div class="mict-head-title">MICT SETA Accredited Unit Standards &mdash; Web Development &amp; E-Commerce</div><div class="mict-head-sub">Abinet (Pty) Ltd &middot; Accreditation No: LPA/00/2017/02/0006 &middot; Issued: 10 Oct 2023</div></div>
+      <div class="mict-head-pills"><span class="mict-pill mp-nqf">NQF Level 5</span><span class="mict-pill mp-credits">38 Credits</span></div>
+    </div>
+    <div class="mict-row"><span class="mict-saqa">115369</span><span class="mict-txt">Design and build a web-site using simple HTML</span><span class="mict-cr">5</span></div>
+    <div class="mict-row"><span class="mict-saqa">115372</span><span class="mict-txt">Understand tools and products for web-site development</span><span class="mict-cr">3</span></div>
+    <div class="mict-row"><span class="mict-saqa">115383</span><span class="mict-txt">Principles of designing and building an e-Commerce web site</span><span class="mict-cr">10</span></div>
+    <div class="mict-row"><span class="mict-saqa">115385</span><span class="mict-txt">Principles of implementing and managing an e-Commerce website</span><span class="mict-cr">12</span></div>
+    <div class="mict-row"><span class="mict-saqa">115380</span><span class="mict-txt">Understand various types of e-commerce applications</span><span class="mict-cr">8</span></div>
+  </div>
+  <div class="credly-cta">
+    <a href="https://www.credly.com/users/zwelibanzi-branden-mndawe" target="_blank" class="credly-btn"><span class="credly-dot"></span>View All Badges on Credly &#8599;</a>
+    <span class="cert-count-badge">12 verified badges</span>
+  </div>
+</div>
+</div>
+</section>
+
+<div class="about" id="about">
+  <div class="about-inner">
+    <div>
+      <h2>Turning ideas into working software.</h2>
+      <p>2+ years building production systems for real clients &mdash; from business portals to mobile apps and automation tools. BSc in Information Technology (Magna Cum Laude), Eduvos.</p>
+      <p>Certified in Azure, Google IT Support, Cybersecurity, and MICT SETA web development (NQF Level 5, 38 credits).</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-item"><div class="sk-label">Front-End</div><div class="sk-val">React, TypeScript, Next.js, React Native</div></div>
+      <div class="skill-item"><div class="sk-label">Back-End</div><div class="sk-val">Node.js, PHP, Python, Rust, REST APIs</div></div>
+      <div class="skill-item"><div class="sk-label">Databases</div><div class="sk-val">PostgreSQL, MySQL, SQLite</div></div>
+      <div class="skill-item"><div class="sk-label">Tools</div><div class="sk-val">Figma, Git, Azure, Selenium, Linux</div></div>
+    </div>
+  </div>
+</div>
+
+<footer id="contact">
+  <div class="foot-inner">
+    <div>
+      <div class="foot-name">Zwelibanzi Branden Mndawe</div>
+      <div class="foot-email">zwelibranden@gmail.com &middot; 082 906 8690</div>
+    </div>
+    <div class="foot-copy">Johannesburg, South Africa<br>Available for full-time roles</div>
+  </div>
+</footer>
+
+<script>
+function setImages(){
+  document.getElementById('hero-img').src=IMGS['photo'];
+  document.getElementById('s0i0').src=IMGS['portal_clients'];
+  document.getElementById('s0i1').src=IMGS['portal_dashboard'];
+  document.getElementById('s0i2').src=IMGS['portal_email_mgmt'];
+  document.getElementById('s0i3').src=IMGS['portal_meetings'];
+  document.getElementById('s0i4').src=IMGS['portal_settings'];
+  document.getElementById('s1i0').src=IMGS['bulk_dashboard'];
+  document.getElementById('s1i1').src=IMGS['bulk_templates'];
+  document.getElementById('s1i2').src=IMGS['bulk_campaign_hist'];
+  document.getElementById('s1i3').src=IMGS['bulk_contacts'];
+  document.getElementById('s1i4').src=IMGS['bulk_groups'];
+  document.getElementById('s1i5').src=IMGS['bulk_campaigns'];
+  document.getElementById('s1i6').src=IMGS['bulk_code'];
+  document.getElementById('s1i7').src=IMGS['bulk_email_recv'];
+  document.getElementById('s2i0').src=IMGS['quikfill_logins'];
+  document.getElementById('s2i1').src=IMGS['quikfill_driver_code'];
+  document.getElementById('s2i2').src=IMGS['quikfill_register'];
+  document.getElementById('s2i3').src=IMGS['quikfill_provider_reg'];
+  document.getElementById('s2i4').src=IMGS['quikfill_code'];
+  document.getElementById('s2i5').src=IMGS['quikfill_provider_nav'];
+  document.getElementById('s3i0').src=IMGS['cipc_robot_full'];
+  document.getElementById('s3i1').src=IMGS['cipc_robot_debug'];
+  document.getElementById('s3i2').src=IMGS['cipc_code'];
+}
+const ssState={};
+function initSS(){
+  ['ss0','ss1','ss2','ss3'].forEach(id=>{
+    const n=document.querySelectorAll('#'+id+' .slide').length;
+    ssState[id]={cur:0,n};
+    const dots=document.getElementById(id+'-dots');
+    for(let i=0;i<n;i++){const d=document.createElement('div');d.className='ss-dot'+(i===0?' active':'');d.onclick=(e)=>{e.stopPropagation();goTo(id,i);};dots.appendChild(d);}
+  });
+}
+function goTo(id,idx){
+  const s=ssState[id];s.cur=(idx+s.n)%s.n;
+  document.getElementById(id+'-t').style.transform=`translateX(-${s.cur*100}%)`;
+  document.getElementById(id+'-c').textContent=`${s.cur+1} / ${s.n}`;
+  document.querySelectorAll('#'+id+'-dots .ss-dot').forEach((d,i)=>d.classList.toggle('active',i===s.cur));
+}
+function ssNav(id,dir){goTo(id,ssState[id].cur+dir);}
+let lbSlides=[],lbIdx=0;
+function openLb(ssId,idx){lbSlides=Array.from(document.querySelectorAll('#'+ssId+' .slide img')).map(i=>i.src);lbIdx=idx;document.getElementById('lb-img').src=lbSlides[lbIdx];document.getElementById('lb').classList.add('open');document.body.style.overflow='hidden';}
+function lbNav(dir){lbIdx=(lbIdx+dir+lbSlides.length)%lbSlides.length;document.getElementById('lb-img').src=lbSlides[lbIdx];}
+function closeLb(){document.getElementById('lb').classList.remove('open');document.body.style.overflow='';}
+document.getElementById('lb').addEventListener('click',function(e){if(e.target===this)closeLb();});
+document.addEventListener('keydown',e=>{if(!document.getElementById('lb').classList.contains('open'))return;if(e.key==='Escape')closeLb();if(e.key==='ArrowLeft')lbNav(-1);if(e.key==='ArrowRight')lbNav(1);});
+let vpSpeeds=[0.5,0.75,1,1.25,1.5,2],vpSpeedIdx=2;
+function handleVideo(input){
+  const file=input.files[0];if(!file)return;
+  const vid=document.getElementById('vp-vid');vid.src=URL.createObjectURL(file);vid.load();
+  document.getElementById('vp-dz').style.display='none';
+  document.getElementById('vp-cinema').classList.add('active');
+  document.getElementById('vp-fname').textContent=file.name.replace(/\.\w+$/,'');
+  vid.addEventListener('loadedmetadata',()=>{document.getElementById('vp-dur').textContent=vpFmt(vid.duration);});
+  vid.addEventListener('timeupdate',vpUpdateProg);
+  vid.addEventListener('progress',vpUpdateBuf);
+  vid.addEventListener('play',()=>{document.getElementById('vp-pi').textContent='\u23F8';document.getElementById('vp-bigplay').textContent='\u23F8';document.getElementById('vp-overlay').classList.add('hidden');});
+  vid.addEventListener('pause',()=>{document.getElementById('vp-pi').textContent='\u25B6';document.getElementById('vp-bigplay').textContent='\u25B6';document.getElementById('vp-overlay').classList.remove('hidden');});
+  vid.addEventListener('ended',()=>{document.getElementById('vp-pi').textContent='\u25B6';document.getElementById('vp-overlay').classList.remove('hidden');});
+  const pw=document.getElementById('vp-prog'),bg=pw.querySelector('.vp-prog-bg');
+  pw.addEventListener('click',e=>{const r=bg.getBoundingClientRect();vid.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*vid.duration;});
+  pw.addEventListener('mousemove',e=>{const r=bg.getBoundingClientRect();const p=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));const t=document.getElementById('vp-tip');t.textContent=vpFmt(p*(vid.duration||0));t.style.left=(e.clientX-r.left)+'px';});
+  document.addEventListener('keydown',vpKeys);requestAnimationFrame(vpGlow);
+}
+function vpGlow(){const vid=document.getElementById('vp-vid'),glow=document.getElementById('vp-glow');if(!vid.paused&&!vid.ended){try{const c=document.createElement('canvas');c.width=4;c.height=4;c.getContext('2d').drawImage(vid,0,vid.videoHeight*.6,vid.videoWidth,vid.videoHeight*.4,0,0,4,4);const d=c.getContext('2d').getImageData(0,0,4,4).data;let r=0,g=0,b=0;for(let i=0;i<d.length;i+=4){r+=d[i];g+=d[i+1];b+=d[i+2];}const n=d.length/4;glow.style.background=`radial-gradient(ellipse,rgba(${~~(r/n)},${~~(g/n)},${~~(b/n)},.7) 0%,transparent 70%)`;}catch(e){}requestAnimationFrame(vpGlow);}}
+function vpUpdateProg(){const v=document.getElementById('vp-vid');if(!v.duration)return;const p=v.currentTime/v.duration*100;document.getElementById('vp-fill').style.width=p+'%';document.getElementById('vp-thumb').style.left=p+'%';document.getElementById('vp-cur').textContent=vpFmt(v.currentTime);}
+function vpUpdateBuf(){const v=document.getElementById('vp-vid');if(!v.duration||!v.buffered.length)return;document.getElementById('vp-buf').style.width=(v.buffered.end(v.buffered.length-1)/v.duration*100)+'%';}
+function vpTogglePlay(){const v=document.getElementById('vp-vid');v.paused?v.play():v.pause();}
+function vpSkip(s){const v=document.getElementById('vp-vid');v.currentTime=Math.max(0,Math.min(v.duration,v.currentTime+s));}
+function vpSetVol(val){const v=document.getElementById('vp-vid');v.volume=val;v.muted=val==0;document.getElementById('vp-volbtn').textContent=val==0?'\uD83D\uDD07':val<0.5?'\uD83D\uDD09':'\uD83D\uDD0A';}
+function vpToggleMute(){const v=document.getElementById('vp-vid');v.muted=!v.muted;document.getElementById('vp-volbtn').textContent=v.muted?'\uD83D\uDD07':'\uD83D\uDD0A';document.getElementById('vp-vol').value=v.muted?0:v.volume;}
+function vpCycleSpeed(){vpSpeedIdx=(vpSpeedIdx+1)%vpSpeeds.length;const s=vpSpeeds[vpSpeedIdx];document.getElementById('vp-vid').playbackRate=s;document.getElementById('vp-speed').textContent=s+'\u00D7';}
+function vpFullscreen(){const w=document.getElementById('vp-cinema');document.fullscreenElement?document.exitFullscreen():w.requestFullscreen&&w.requestFullscreen();}
+function vpFmt(s){if(!s||isNaN(s))return'0:00';return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');}
+function vpKeys(e){if(e.target.tagName==='INPUT')return;if(e.code==='Space'){e.preventDefault();vpTogglePlay();}if(e.code==='ArrowLeft')vpSkip(-5);if(e.code==='ArrowRight')vpSkip(5);if(e.code==='KeyM')vpToggleMute();if(e.code==='KeyF')vpFullscreen();}
+function vpDragOver(e){e.preventDefault();document.getElementById('vp-dz').classList.add('drag-over');}
+function vpDragLeave(){document.getElementById('vp-dz').classList.remove('drag-over');}
+function vpDrop(e){e.preventDefault();document.getElementById('vp-dz').classList.remove('drag-over');const file=e.dataTransfer.files[0];if(file&&file.type.startsWith('video/')){const dt=new DataTransfer();dt.items.add(file);const inp=document.getElementById('vp-input');inp.files=dt.files;handleVideo(inp);}}
+function removeVideo(){const v=document.getElementById('vp-vid');v.pause();v.src='';document.getElementById('vp-cinema').classList.remove('active');document.getElementById('vp-dz').style.display='flex';document.getElementById('vp-input').value='';document.removeEventListener('keydown',vpKeys);}
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+setImages();
+initSS();
+</script>
+</body>
+</html>
